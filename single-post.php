@@ -20,10 +20,47 @@
 
 <body>
     <?php
+ $post;
+    if(isset($_GET['post_id'])) {
+        $id = $_REQUEST['post_id'];
+        try {
+            $host='localhost';
+            $databaseName='blog';
+            $username='admin';
+            $password='KicaLisica!2#';
+            $connection = new PDO("mysql:host=$host;dbname=$databaseName", $username, $password);
+            $sql='SELECT * FROM posts WHERE id=? ;';
+            $statement = $connection->prepare($sql);
+            $statement->execute([$id]);
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $post = $statement->fetch();
+
+        } catch(PDOException $e){
+            echo $e->getMessage();die;
+        }
+    }
+    ?>
+    <?php
         include 'header.php';
     ?>
     <main role="main" class="container">
         <div class="row">
+            <?php
+                if(!is_array($post) || count($post) ===0){ ?>
+                    <p> Invalid post id  <?php echo $post_id ?></p>
+                <?php 
+                } else { ?>
+                    <div class="blog-post">
+                        <a class="blog-post-title"><?php echo $post['title'] ?></a>
+                        <p class="blog-post-meta">
+                            <?php echo $post['created_at'] ?>
+                            <a href="#"><?php echo $post['author'] ?></a>
+                        </p>
+                        <p><?php echo $post['body'] ?></p>
+                    </div>
+                <?php
+                }
+                ?>
             <?php
                 include 'sidebar.php';
             ?>

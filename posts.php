@@ -48,7 +48,7 @@
                     if(is_array($posts) && count($posts) > 0){
                         foreach($posts as $key => $post){?>
                             <div class="blog-post">
-                                <a class="blog-post-title"><?php echo $post['title'] ?></a>
+                                <a class="blog-post-title" href="./single-post.php?post_id=<?php echo  $post['id'] ?>"><?php echo $post['title'] ?></a>
                                 <p class="blog-post-meta">
                                     <?php echo $post['created_at'] ?>
                                     <a href="#"><?php echo $post['author'] ?></a>
