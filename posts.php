@@ -15,19 +15,22 @@
 
     <!-- Custom styles for this template -->
     <link href="styles/blog.css" rel="stylesheet">
+    <link href="styles/styles.css" rel="stylesheet">
 </head>
 
 <body>
-<?php
-    include 'header.php';
-    include "sidebar.php"
-?>
-    <div class="row">
-        <div class="col-sm-8 blog-main">
-        </div>  
-    </div>   
-<?php
-    include 'footer.php';
-?>
+    <?php
+        include 'header.php';
+    ?>
+    <main role="main" class="container">
+        <div class="row">
+            <?php
+                include 'sidebar.php';
+            ?>
+        </div><!-- /.row -->
+    </main><!-- /.container -->
+    <?php
+            include 'footer.php';
+    ?>
 </body>
 </html>
