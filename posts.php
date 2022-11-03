@@ -20,10 +20,46 @@
 
 <body>
     <?php
+    $posts;
+    try {
+        $host='localhost';
+        $databaseName='blog';
+        $username='admin';
+        $password='KicaLisica!2#';
+        $connection = new PDO("mysql:host=$host;dbname=$databaseName", $username, $password);
+        $sql='SELECT * FROM posts ORDER BY created_at DESC;';
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $statement->setFetchMode(PDO::FETCH_ASSOC);
+        $posts = $statement->fetchAll();
+
+    } catch(PDOException $e){
+        echo $e->getMessage();die;
+    }
+
+    ?>
+    <?php
         include 'header.php';
     ?>
     <main role="main" class="container">
         <div class="row">
+            <div class="col-sm-8 blog-main">
+                <?php
+                    if(is_array($posts) && count($posts) > 0){
+                        foreach($posts as $key => $post){?>
+                            <div class="blog-post">
+                                <a class="blog-post-title"><?php echo $post['title'] ?></a>
+                                <p class="blog-post-meta">
+                                    <?php echo $post['created_at'] ?>
+                                    <a href="#"><?php echo $post['author'] ?></a>
+                                </p>
+                                <p><?php echo $post['body'] ?></p>
+                            </div>
+                        <?php
+                        }
+                    }
+                ?>
+            </div>
             <?php
                 include 'sidebar.php';
             ?>
